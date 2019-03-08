@@ -26,8 +26,8 @@ session_start();
             <li class="list-group-item" style="height:55px;">
                 <?php echo $value?>
                 <?php echo $i?>
-                <button class="btn btn-danger" style="float:right; margin-right:100px;" name="<?php echo $key ?>" formaction="deleteItem.php" method="GET">Delete</button>
-                <button class="btn btn-primary" style="float:right; margin-right:100px;" name="<?php echo $key?>" formaction="editItem.php" method="GET">Edit</button></li>
+                <input class="btn btn-danger" style="float:right; margin-right:100px;" type="button" value="Delete" onclick=" location.href = 'deleteItem.php?index=<?php echo $key; ?>';">
+                <input class="btn btn-primary" style="float:right; margin-right:100px;" type="button" value="Edit" onclick=" location.href = 'editItem.php?index=<?php echo $key; ?>';">
             </li>
         <?php endforeach; ?>
     <?php endif; ?>
