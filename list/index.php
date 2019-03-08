@@ -20,17 +20,17 @@ session_start();
         </form>
     </div>
     <?php
-    echo '<form action="editItem.php"POST">';
+    echo '<form>';
     echo '<ul class="container list-group">';
     if(count($_SESSION['toDoArray']>0))
     {
         $i=0;
         foreach($_SESSION['toDoArray'] as $value)
         {
-            echo '<li class="list-group-item">';
+            echo '<li id="elm" class="list-group-item" style="height:55px">';
             echo $value;
-            echo '<button class="btn btn-primary" name="'.$i.'">Edit</button>';
-            echo '<button class="btn btn-danger">Delete</button></li>';
+            echo '<button class="btn btn-danger" style="float:right; margin-right:100px;" name="'.$i.'" formaction="deleteItem.php" method="GET">Delete</button>';
+            echo '<button class="btn btn-primary" style="float:right; margin-right:100px;" name="'.$i.'" formaction="editItem.php" method="GET">Edit</button></li>';
             $i=$i+1;
         }
     }
