@@ -14,28 +14,24 @@ session_start();
         <form action="addItem.php" method="POST">
             <div class="form-group">
                 <label for="item">Add Item</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter item here" name="item">
+                <input type="text" class="form-control" placeholder="Enter item here" name="item">
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
-    <?php
-    echo '<form>';
-    echo '<ul class="container list-group">';
-    if(count($_SESSION['toDoArray']>0))
-    {
-        $i=0;
-        foreach($_SESSION['toDoArray'] as $value)
-        {
-            echo '<li id="elm" class="list-group-item" style="height:55px">';
-            echo $value;
-            echo '<button class="btn btn-danger" style="float:right; margin-right:100px;" name="'.$i.'" formaction="deleteItem.php" method="GET">Delete</button>';
-            echo '<button class="btn btn-primary" style="float:right; margin-right:100px;" name="'.$i.'" formaction="editItem.php" method="GET">Edit</button></li>';
-            $i=$i+1;
-        }
-    }
-    echo '</ul>';
-    echo '</form>';
-    ?>
+    <form>
+    <ul class="container list-group">
+    <?php if(count($_SESSION['toDoArray'])): ?>
+        <?php foreach($_SESSION['toDoArray'] as $key=>$value): ?>
+            <li class="list-group-item" style="height:55px;">
+                <?php echo $value?>
+                <?php echo $i?>
+                <button class="btn btn-danger" style="float:right; margin-right:100px;" name="<?php echo $key ?>" formaction="deleteItem.php" method="GET">Delete</button>
+                <button class="btn btn-primary" style="float:right; margin-right:100px;" name="<?php echo $key?>" formaction="editItem.php" method="GET">Edit</button></li>
+            </li>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    </ul>
+    </form>
 </body>
 </html>
