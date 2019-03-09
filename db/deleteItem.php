@@ -5,7 +5,7 @@ $password="goldtree9";
 $database="todoList";
 $connection=new mysqli($servername,$username,$password,$database);
 $key=$_REQUEST['index'];
-$query="DELETE from task where id=$key";
+$query="DELETE from taskTable where id=$key";
 if ($connection->query($query) === TRUE)
     header("Location: index.php");
 else 

@@ -4,7 +4,7 @@ $username="root";
 $password="goldtree9";
 $database="todoList";
 $connection=new mysqli($servername,$username,$password,$database);
-$query="SELECT * from task";
+$query="SELECT * from taskTable";
 $result=$connection->query($query);
 if($result->num_rows>0)
 $connection->close();
