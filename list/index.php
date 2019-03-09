@@ -14,7 +14,7 @@ session_start();
         <form action="addItem.php" method="POST">
             <div class="form-group">
                 <label for="item">Add Item</label>
-                <input type="text" class="form-control" placeholder="Enter item here" name="item">
+                <input type="text" class="form-control" placeholder="Enter item here" name="item" required>
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
