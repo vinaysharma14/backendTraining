@@ -30,13 +30,23 @@ $connection->close();
     <ul class="container list-group">
     <?php if($result->num_rows>0): ?>
         <?php while($row=$result->fetch_assoc()): ?>
-            <li class="list-group-item" style="height:55px;">
+            <li class="list-group-item" style="height:60px;">
                 <?php 
                     echo $row["task"];
                     $key=$row["id"];
+                    $flag=$row["isCompleted"];
                 ?>
-                <input class="btn btn-danger" style="float:right; margin-right:100px;" type="button" value="Delete" onclick=" location.href = 'deleteItem.php?index=<?php echo $key; ?>';">
-                <input class="btn btn-primary" style="float:right; margin-right:100px;" type="button" value="Edit" onclick=" location.href = 'editItem.php?index=<?php echo $key; ?>';">
+                <input class="btn btn-danger" style="float:right; margin-right:100px;" type="button" value="Delete" onclick="location.href='deleteItem.php?index=<?php echo $key;?>';">
+                <input class="btn btn-primary" style="float:right; margin-right:100px;" type="button" value="Edit" onclick="location.href='editItem.php?index=<?php echo $key;?>';">
+                <label id=<?php echo $key?> class="checkbox-inline" style="float:right; margin-right:100px;"><input type="checkbox" onclick="location.href='editCheck.php?index=<?php echo $key;?>&check=<? echo $flag?>';"><span>Incomplete</span></label>
+                <script>
+                    var flag=<?php echo $row["isCompleted"];?>;
+                    if(flag!=0)
+                    {
+                        document.getElementById(<?php echo $key?>).childNodes[1].innerHTML="Completed";
+                        document.getElementById(<?php echo $key?>).childNodes[0].checked=true;
+                    }
+                </script>
             </li>
         <?php endwhile; ?>
     <?php endif; ?>
