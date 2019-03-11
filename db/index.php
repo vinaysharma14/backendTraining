@@ -30,7 +30,7 @@ $connection->close();
     <ul class="container list-group">
     <?php if($result->num_rows>0): ?>
         <?php while($row=$result->fetch_assoc()): ?>
-            <li class="list-group-item" style="height:60px;">
+            <li class="list-group-item" style="height:60px; text-decoration: <?php if($row["isCompleted"]==1) echo "line-through"?>;">
                 <?php 
                     echo $row["task"];
                     $key=$row["id"];
