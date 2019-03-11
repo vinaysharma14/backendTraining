@@ -43,6 +43,8 @@ $connection->close();
                     var flag=<?php echo $row["isCompleted"];?>;
                     if(flag!=0)
                     {
+                        // document.getElementById(<?php echo $key?>).parentNode.childNodes[0].textContent="red";
+                        // document.getElementById(<?php echo $key?>).parentNode.childNodes[0].style.color="red";
                         document.getElementById(<?php echo $key?>).childNodes[1].innerHTML="Completed";
                         document.getElementById(<?php echo $key?>).childNodes[0].checked=true;
                     }

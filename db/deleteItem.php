@@ -1,9 +1,6 @@
 <?php
-$servername="127.0.0.1";
-$username="root";
-$password="goldtree9";
-$database="todoList";
-$connection=new mysqli($servername,$username,$password,$database);
+require_once("connectDatabase.php");
+$connection=db();
 $key=$_REQUEST['index'];
 $query="DELETE from taskTable where id=$key";
 if ($connection->query($query) === TRUE)
