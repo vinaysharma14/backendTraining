@@ -1,0 +1,103 @@
+<html>
+<head>
+    <title>To-Do</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>To Do List</h2>
+        <form action="addItem.php" method="POST">
+            <div class="form-group">
+                <label for="item">Add Item</label>
+                <input type="text" class="form-control" placeholder="Enter item here" name="item" required>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+    <ul class="container list-group" id="todoList">
+    </ul>
+</body>
+</html>
+<script>
+var request=new XMLHttpRequest();
+request.onreadystatechange=function()
+{
+    if (this.readyState == 4 && this.status == 200)
+    {
+        var todoArray=JSON.parse(this.responseText);
+        var todoList=document.getElementById("todoList");
+        for(var i=0;i<todoArray.length;i++)
+        {
+            var todoItem=document.createElement("li");
+            todoItem.setAttribute("id",todoArray[i].id);
+            todoItem.textContent=todoArray[i].task;
+            todoItem.classList.add("list-group-item");
+            todoItem.style.height="55px";
+
+            var itemName=document.createElement("p");
+
+            var deleteButton=createDeleteButton(todoItem.id);
+            deleteButton.addEventListener("click",function()
+            {
+                alert(this.id);
+            });
+
+            var editButton=createEditButton(todoItem.id);
+            editButton.addEventListener("click",function()
+            {
+                alert(this.id);
+            });
+
+            var checkBox=document.createElement("input");
+            checkBox.setAttribute("type","checkbox");
+            checkBox.setAttribute("style","float:right; margin-right:200px;margin-top:-22px;"); 
+
+            var checkBoxStatus=document.createElement("label");
+            checkBoxStatus.textContent="Incomplete";
+            checkBoxStatus.setAttribute("style","float:right; margin-right:100px;margin-top:-24px;"); 
+            checkBoxStatus.style.fontWeight="normal";
+            
+            if(todoArray[i].isCompleted==1)
+            {
+                checkBoxStatus.textContent="Completed";
+                todoItem.style.textDecoration="line-through";
+                checkBox.checked=true;
+            }
+            
+            todoItem.appendChild(itemName);
+            todoItem.appendChild(deleteButton);
+            todoItem.appendChild(editButton);
+            todoItem.appendChild(checkBox);
+            todoItem.appendChild(checkBoxStatus)
+            todoList.appendChild(todoItem);
+        }
+    }
+};
+request.open("GET", "http://api.local.geekydev.com/", true);
+request.send();
+
+function createDeleteButton(id)
+{
+    var deleteButton=document.createElement("button");
+    deleteButton.innerHTML="Delete";
+    deleteButton.classList.add("btn");
+    deleteButton.classList.add("btn-danger");
+    deleteButton.setAttribute("style","float:right; margin-right:100px;margin-top:-33px;");
+    deleteButton.setAttribute("id",id);
+    return deleteButton;
+}
+
+function createEditButton(id)
+{
+    var editButton=document.createElement("button");
+    editButton.innerHTML="Edit";
+    editButton.classList.add("btn");
+    editButton.classList.add("btn-primary");
+    editButton.setAttribute("style","float:right; margin-right:100px;margin-top:-33px;");
+    editButton.setAttribute("id",id);
+    return editButton;
+}
+
+</script>
