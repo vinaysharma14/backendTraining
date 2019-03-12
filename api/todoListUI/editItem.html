@@ -1,0 +1,39 @@
+<head>
+    <title>To-Do</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit To Do Item</h2>
+        <div class="form-group">
+            <label for="item">Edit Item</label>
+            <input id="input" type="text" class="form-control" placeholder="Edit item here" name="item" required>
+        </div>
+        <button type="submit" class="btn btn-success" onclick="editItem()">Edit</button>
+    </div>
+    <form>
+</body>
+<script>
+function getID(str) 
+{
+    return str.split('=')[1];
+}
+var id=getID(window.location.href);
+var inputField=document.getElementById("input");
+function editItem()
+{
+    if(inputField.value.length>0)
+    {
+        var request=new XMLHttpRequest();
+        request.open("POST","http://api.local.geekydev.com/editFinal.php",true);
+        request.send(JSON.stringify({id:id,name:inputField.value}));
+        request.onload=function()
+        {
+            location.href="index.html";
+        }
+    }
+}
+</script>
+</html>

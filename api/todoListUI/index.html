@@ -103,7 +103,7 @@ function appendTodoItem(item)
     var editButton=createEditButton(todoItem.id);
     editButton.addEventListener("click",function()
     {
-        alert(this.parentNode.id);
+        location.href="editItem.html?key="+this.parentNode.id;
     });
 
     var checkBox=createCheckBox(todoItem.id)
