@@ -5,7 +5,6 @@ header('Content-Type: application/json');
 require_once("connectDatabase.php");
 $connection=db();
 
-
 $jsonContent=json_decode(file_get_contents('php://input'),true);
 $value=$jsonContent["name"];
 

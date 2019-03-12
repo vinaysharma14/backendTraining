@@ -60,7 +60,6 @@ function createDeleteButton(id)
     deleteButton.classList.add("btn");
     deleteButton.classList.add("btn-danger");
     deleteButton.setAttribute("style","float:right; margin-right:100px;margin-top:-33px;");
-    deleteButton.setAttribute("id",id);
     return deleteButton;
 }
 
@@ -71,8 +70,15 @@ function createEditButton(id)
     editButton.classList.add("btn");
     editButton.classList.add("btn-primary");
     editButton.setAttribute("style","float:right; margin-right:100px;margin-top:-33px;");
-    editButton.setAttribute("id",id);
     return editButton;
+}
+
+function createCheckBox(id)
+{
+    var checkBox=document.createElement("input");
+    checkBox.setAttribute("type","checkbox");
+    checkBox.setAttribute("style","float:right; margin-right:200px;margin-top:-22px;"); 
+    return checkBox;
 }
 
 function appendTodoItem(item)
@@ -88,18 +94,35 @@ function appendTodoItem(item)
     var deleteButton=createDeleteButton(todoItem.id);
     deleteButton.addEventListener("click",function()
     {
-        alert(this.id);
+        alert(this.parentNode.id);
     });
 
     var editButton=createEditButton(todoItem.id);
     editButton.addEventListener("click",function()
     {
-        alert(this.id);
+        alert(this.parentNode.id);
     });
 
-    var checkBox=document.createElement("input");
-    checkBox.setAttribute("type","checkbox");
-    checkBox.setAttribute("style","float:right; margin-right:200px;margin-top:-22px;"); 
+    var checkBox=createCheckBox(todoItem.id)
+    checkBox.addEventListener("click",function()
+    {
+        // this.parentNode.childNodes[0].textContent="Hii";
+        // this.parentNode.childNodes[0].textContent.style.textDecoration="line-through";
+        this.parentNode.style.textDecoration="line through";
+        if(this.checked==true)
+        {
+            var flag=1;
+            this.parentNode.childNodes[5].innerHTML="Completed";
+        }
+        else
+        {
+            var flag=0;
+            this.parentNode.childNodes[5].innerHTML="Incomplete";
+        }
+        var request=new XMLHttpRequest();
+        request.open("POST","http://api.local.geekydev.com/editCheck.php",true);
+        request.send(JSON.stringify({id:this.parentNode.id,check:flag}));
+    })
 
     var checkBoxStatus=document.createElement("label");
     checkBoxStatus.textContent="Incomplete";
