@@ -94,7 +94,10 @@ function appendTodoItem(item)
     var deleteButton=createDeleteButton(todoItem.id);
     deleteButton.addEventListener("click",function()
     {
-        alert(this.parentNode.id);
+        var request=new XMLHttpRequest();
+        request.open("POST","http://api.local.geekydev.com/deleteItem.php",true);
+        request.send(JSON.stringify({id:this.parentNode.id}));
+        document.getElementById(this.parentNode.id).remove();
     });
 
     var editButton=createEditButton(todoItem.id);
