@@ -8,19 +8,37 @@
 <body>
     <div class="container">
         <h2>To Do List</h2>
-        <form action="addItem.php" method="POST">
-            <div class="form-group">
-                <label for="item">Add Item</label>
-                <input type="text" class="form-control" placeholder="Enter item here" name="item" required>
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
+        <div class="form-group">
+            <label for="item">Add Item</label>
+            <input id="input" type="text" class="form-control" placeholder="Enter item here" name="item" required>
+        </div>
+        <button id="submitButton" class="btn btn-success">Submit</button>
     </div>
-    <ul class="container list-group" id="todoList">
+    <ul class="container list-group" id="todoList" style="margin-top: 20px">
     </ul>
 </body>
 </html>
 <script>
+var submitButton=document.getElementById("submitButton");
+var inputField=document.getElementById("input");
+submitButton.addEventListener("click",function()
+{
+    if(submitButton.innerHTML=="Submit")
+    {
+        submitButton.innerHTML="Adding";
+        var request=new XMLHttpRequest();
+        request.onload=function()
+        {
+            var item=JSON.parse(this.responseText);
+            appendTodoItem(item);
+            submitButton.innerHTML="Submit";
+            inputField.value="";
+        }
+        request.open("POST", "http://api.local.geekydev.com/addItem.php", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send(JSON.stringify({name:document.getElementById("input").value}));
+    }
+})
 var request=new XMLHttpRequest();
 request.onreadystatechange=function()
 {
@@ -29,50 +47,7 @@ request.onreadystatechange=function()
         var todoArray=JSON.parse(this.responseText);
         var todoList=document.getElementById("todoList");
         for(var i=0;i<todoArray.length;i++)
-        {
-            var todoItem=document.createElement("li");
-            todoItem.setAttribute("id",todoArray[i].id);
-            todoItem.textContent=todoArray[i].task;
-            todoItem.classList.add("list-group-item");
-            todoItem.style.height="55px";
-
-            var itemName=document.createElement("p");
-
-            var deleteButton=createDeleteButton(todoItem.id);
-            deleteButton.addEventListener("click",function()
-            {
-                alert(this.id);
-            });
-
-            var editButton=createEditButton(todoItem.id);
-            editButton.addEventListener("click",function()
-            {
-                alert(this.id);
-            });
-
-            var checkBox=document.createElement("input");
-            checkBox.setAttribute("type","checkbox");
-            checkBox.setAttribute("style","float:right; margin-right:200px;margin-top:-22px;"); 
-
-            var checkBoxStatus=document.createElement("label");
-            checkBoxStatus.textContent="Incomplete";
-            checkBoxStatus.setAttribute("style","float:right; margin-right:100px;margin-top:-24px;"); 
-            checkBoxStatus.style.fontWeight="normal";
-            
-            if(todoArray[i].isCompleted==1)
-            {
-                checkBoxStatus.textContent="Completed";
-                todoItem.style.textDecoration="line-through";
-                checkBox.checked=true;
-            }
-            
-            todoItem.appendChild(itemName);
-            todoItem.appendChild(deleteButton);
-            todoItem.appendChild(editButton);
-            todoItem.appendChild(checkBox);
-            todoItem.appendChild(checkBoxStatus)
-            todoList.appendChild(todoItem);
-        }
+            appendTodoItem(todoArray[i]);
     }
 };
 request.open("GET", "http://api.local.geekydev.com/", true);
@@ -100,4 +75,49 @@ function createEditButton(id)
     return editButton;
 }
 
+function appendTodoItem(item)
+{
+    var todoItem=document.createElement("li");
+    todoItem.setAttribute("id",item.id);
+    todoItem.textContent=item.task;
+    todoItem.classList.add("list-group-item");
+    todoItem.style.height="55px";
+
+    var itemName=document.createElement("p");
+
+    var deleteButton=createDeleteButton(todoItem.id);
+    deleteButton.addEventListener("click",function()
+    {
+        alert(this.id);
+    });
+
+    var editButton=createEditButton(todoItem.id);
+    editButton.addEventListener("click",function()
+    {
+        alert(this.id);
+    });
+
+    var checkBox=document.createElement("input");
+    checkBox.setAttribute("type","checkbox");
+    checkBox.setAttribute("style","float:right; margin-right:200px;margin-top:-22px;"); 
+
+    var checkBoxStatus=document.createElement("label");
+    checkBoxStatus.textContent="Incomplete";
+    checkBoxStatus.setAttribute("style","float:right; margin-right:100px;margin-top:-24px;"); 
+    checkBoxStatus.style.fontWeight="normal";
+    
+    if(item.isCompleted==1)
+    {
+        checkBoxStatus.textContent="Completed";
+        todoItem.style.textDecoration="line-through";
+        checkBox.checked=true;
+    }
+    
+    todoItem.appendChild(itemName);
+    todoItem.appendChild(deleteButton);
+    todoItem.appendChild(editButton);
+    todoItem.appendChild(checkBox);
+    todoItem.appendChild(checkBoxStatus)
+    todoList.appendChild(todoItem);
+}
 </script>
