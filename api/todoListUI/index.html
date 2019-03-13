@@ -109,18 +109,18 @@ function appendTodoItem(item)
     var checkBox=createCheckBox(todoItem.id)
     checkBox.addEventListener("click",function()
     {
-        // this.parentNode.childNodes[0].textContent="Hii";
-        // this.parentNode.childNodes[0].textContent.style.textDecoration="line-through";
         this.parentNode.style.textDecoration="line through";
         if(this.checked==true)
         {
             var flag=1;
             this.parentNode.childNodes[5].innerHTML="Completed";
+            this.parentNode.style.textDecoration="line-through";
         }
         else
         {
             var flag=0;
             this.parentNode.childNodes[5].innerHTML="Incomplete";
+            this.parentNode.style.textDecoration="none";
         }
         var request=new XMLHttpRequest();
         request.open("POST","http://api.local.geekydev.com/editCheck.php",true);
