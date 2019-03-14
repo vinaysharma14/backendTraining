@@ -1,0 +1,49 @@
+body
+{
+    background-color: whitesmoke;
+}
+h1
+{
+    color: #e8d4d5;
+    font-weight: lighter;
+    text-align: center;
+    font-size: 100px;
+}
+i
+{
+    color: lightgray;
+    font-size: 30px;
+    position: relative;
+    left: -810px;
+}
+#todoInput
+{
+    border-style: none;
+    outline: none;
+    border-bottom: 1px solid whitesmoke;
+    font-weight: lighter;
+    color: grey;
+    font-style: italic;
+    font-size: 25px;
+    text-indent: 50px;
+}
+::placeholder 
+{
+    color: lightgray;
+    font-style: italic;
+    font-size: 25px;
+    font-weight: lighter;
+    margin-left: 300px;
+}
+ul,li
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none 
+}
+.list
+{
+    border-bottom: 1px solid whitesmoke;
+    font-weight: lighter;
+    font-size: 25px;
+}
