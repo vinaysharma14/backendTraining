@@ -31,7 +31,6 @@ i
     border-bottom: 1px solid whitesmoke;
     font-weight: lighter;
     color: grey;
-    font-style: italic;
     font-size: 25px;
     text-indent: 50px;
     margin-bottom: -30px;
@@ -55,4 +54,30 @@ ul,li
     border-bottom: 1px solid whitesmoke;
     font-weight: lighter;
     font-size: 25px;
+}
+#listCount
+{
+    color: lightgray;
+    font-weight: lighter;
+    margin-left: 20px;
+}
+.button-list
+{
+    float: right;
+    margin-right: 100px;
+    font-weight: lighter;
+    color: lightgray;
+}
+.list-inline-item
+{
+    margin-right: 30px;
+    padding: 0px 10px 0px 10px;
+}
+.list-inline-item
+{
+    border-radius: 5px !important;
+}
+.list-inline-item:hover
+{
+    cursor: pointer !important;
 }
