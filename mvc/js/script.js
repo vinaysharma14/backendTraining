@@ -200,28 +200,64 @@ cmp.addEventListener("mouseleave",function()
 
 document.getElementById("downAngle").addEventListener("click",function()
 {
-    var list=document.getElementById("todoList");
-    if(list.childElementCount>0 && list.getAttribute("checkAll")==1)
+    if(all.getAttribute("isActive")==1)
     {
-        for(var i=1;i<=list.childElementCount;i++)
+        var list=document.getElementById("todoList");
+        if(list.childElementCount>0 && list.getAttribute("checkAll")==1)
         {
-            list.childNodes[i].childNodes[0].checked=true;
-            list.childNodes[i].childNodes[1].style.textDecoration="line-through";
-            list.childNodes[i].childNodes[1].style.color="lightgrey";
+            for(var i=1;i<=list.childElementCount;i++)
+            {
+                list.childNodes[i].childNodes[0].checked=true;
+                list.childNodes[i].childNodes[1].style.textDecoration="line-through";
+                list.childNodes[i].childNodes[1].style.color="lightgrey";
+            }
+            list.setAttribute("checkAll",0);
         }
-        list.setAttribute("checkAll",0);
+        else if(list.childElementCount>0 && list.getAttribute("checkAll")==0)
+        {
+            for(var i=1;i<=list.childElementCount;i++)
+            {
+                list.childNodes[i].childNodes[0].checked=false;
+                list.childNodes[i].childNodes[1].style.textDecoration="none";
+                list.childNodes[i].childNodes[1].style.color="black";
+            }
+            list.setAttribute("checkAll",1);
+        }
     }
-    else if(list.childElementCount>0 && list.getAttribute("checkAll")==0)
+    else if(act.getAttribute("isActive")==1)
     {
-        for(var i=1;i<=list.childElementCount;i++)
+        var list=document.getElementById("todoList");
+        if(list.childElementCount>0)
         {
-            list.childNodes[i].childNodes[0].checked=false;
-            list.childNodes[i].childNodes[1].style.textDecoration="none";
-            list.childNodes[i].childNodes[1].style.color="black";
+            for(var i=1;i<=list.childElementCount;i++)
+            {
+                if(list.childNodes[i].style.display=="block")
+                {
+                    list.childNodes[i].childNodes[0].checked=true;
+                    list.childNodes[i].childNodes[1].style.textDecoration="line-through";
+                    list.childNodes[i].childNodes[1].style.color="lightgrey";
+                    list.childNodes[i].style.display="none";
+                }
+            }
         }
-        list.setAttribute("checkAll",1);
     }
-
+    else if(cmp.getAttribute("isActive")==1)
+    {
+        var list=document.getElementById("todoList");
+        if(list.childElementCount>0)
+        {
+            for(var i=1;i<=list.childElementCount;i++)
+            {
+                if(list.childNodes[i].style.display=="block")
+                {
+                    list.childNodes[i].childNodes[0].checked=false;
+                    list.childNodes[i].childNodes[1].style.textDecoration="none";
+                    list.childNodes[i].childNodes[1].style.color="black";
+                    list.childNodes[i].style.display="none";
+                }
+            }
+        }
+    }
     var c=0;
     for(var i=1;i<=list.childElementCount;i++)
         if(list.childNodes[i].childNodes[0].checked==false)
