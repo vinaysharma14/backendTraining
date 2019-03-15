@@ -6,6 +6,8 @@ document.body.onload=function()
     var act=document.getElementById("act").setAttribute("isActive","0");
     var cmp=document.getElementById("cmp").setAttribute("isActive","0");
     var footer=document.getElementsByClassName("buttons");
+    var list=document.getElementById("todoList");
+    list.setAttribute("checkAll",1);
 }
 
 document.getElementById("todoInput").addEventListener("keydown",function(event)
@@ -199,20 +201,25 @@ cmp.addEventListener("mouseleave",function()
 document.getElementById("downAngle").addEventListener("click",function()
 {
     var list=document.getElementById("todoList");
-    for(var i=1;i<=list.childElementCount;i++)
+    if(list.childElementCount>0 && list.getAttribute("checkAll")==1)
     {
-        if(list.childNodes[i].childNodes[0].checked==false)
+        for(var i=1;i<=list.childElementCount;i++)
         {
             list.childNodes[i].childNodes[0].checked=true;
             list.childNodes[i].childNodes[1].style.textDecoration="line-through";
             list.childNodes[i].childNodes[1].style.color="lightgrey";
         }
-        else
+        list.setAttribute("checkAll",0);
+    }
+    else if(list.childElementCount>0 && list.getAttribute("checkAll")==0)
+    {
+        for(var i=1;i<=list.childElementCount;i++)
         {
             list.childNodes[i].childNodes[0].checked=false;
             list.childNodes[i].childNodes[1].style.textDecoration="none";
             list.childNodes[i].childNodes[1].style.color="black";
         }
+        list.setAttribute("checkAll",1);
     }
 
     var c=0;
