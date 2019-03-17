@@ -1,7 +1,8 @@
-function render(objectName)
+function render(objectName,isCompleted,index)
 {
     var list=document.getElementById("todoList");
     var item=document.createElement("li");
+    item.setAttribute("id",index);
     var itemCheck=document.createElement("input");
     var itemName=document.createElement("p");
     var icon=document.createElement("i");
@@ -15,7 +16,12 @@ function render(objectName)
         this.addEventListener("keydown",function(event)
         {
             if(event.key=="Enter")
-            itemName.contentEditable="false";
+            {
+                collectionObject.todoCollection[this.parentElement.id].editName(itemName.textContent);
+                clear();
+                for(var i=0;i<collectionObject.todoCollection.length;i++)
+                    render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
+            }
         });
     });
 
@@ -31,38 +37,38 @@ function render(objectName)
 
     icon.addEventListener("click",function()
     {
-        this.parentElement.remove();
-        document.getElementById("listCount").textContent=list.childElementCount+" items left";
+        collectionObject.todoPop(this.parentElement.id);
+        clear();
+        getLeftCount();
+        for(var i=0;i<collectionObject.todoCollection.length;i++)
+            render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
     });
 
     itemCheck.addEventListener("click",function()
     {
-        document.getElementById("listCount").textContent=getLeftCount()+" items left";
-
-        if(this.checked==false)
-        {
-            this.parentElement.childNodes[1].style.textDecoration="none";
-            this.parentElement.childNodes[1].style.color="black";
-        }
-        else
-        {
-            this.parentElement.childNodes[1].style.textDecoration="line-through";
-            this.parentElement.childNodes[1].style.color="lightgrey";
-        }
+        getLeftCount();
+        collectionObject.todoCollection[this.parentElement.id].toggleCheck();
+        clear();
+        for(var i=0;i<collectionObject.todoCollection.length;i++)
+            render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
     });
 
     itemCheck.type="checkbox";
     itemName.textContent=objectName;
+    if(isCompleted==1)
+    {
+        itemName.style.textDecoration="line-through";
+        itemName.style.color="lightgrey";
+        itemCheck.checked=true;
+    }
 
     item.classList.add("list","shadow","p-2","bg-white");
-    itemCheck.classList.add("checkBox")
+    itemCheck.classList.add("checkBox");
 
     item.appendChild(itemCheck);
     item.appendChild(itemName);
     item.appendChild(icon);
     list.appendChild(item);
-
-    document.getElementById("listCount").textContent=getLeftCount()+" items left";
 }
 function clear()
 {
@@ -72,17 +78,17 @@ function clear()
 function getLeftCount()
 {
     var c=0;
-    for(var i=0;i<list.childElementCount;i++)
-        if(list.children[i].children[0].checked==false)
+    for(var i=0;i<collectionObject.todoCollection.length;i++)
+        if(collectionObject.todoCollection[i].isCompleted==0)
             c++;
-    return c;
+    document.getElementById("listCount").textContent=c+" items left";
 }
 all.addEventListener("click",function()
 {
-    var list=document.getElementById("todoList");
-    for(var i=0;i<list.childElementCount;i++)
-        list.children[i].style.display="block";
-    document.getElementById("listCount").textContent=list.childElementCount+" items left";
+    clear();
+    for(var i=0;i<collectionObject.todoCollection.length;i++)
+        render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
+    getLeftCount();
 
     this.setAttribute("isActive","1");
     this.setAttribute("style","border: 1px solid #e8d4d5;");
@@ -109,18 +115,11 @@ all.addEventListener("mouseleave",function()
 
 act.addEventListener("click",function()
 {
-    var list=document.getElementById("todoList");
-    var counter=0;
-    for(var i=0;i<list.childElementCount;i++)
-    {
-        list.children[i].style.display="block";
-        if(list.children[i].children[0].checked==true)
-        {
-            list.children[i].style.display="none";
-            counter++;
-        }
-    }
-    document.getElementById("listCount").textContent=list.childElementCount-counter+" items left";
+    clear();
+    for(var i=0;i<collectionObject.todoCollection.length;i++)
+        if(collectionObject.todoCollection[i].isCompleted==false)
+            render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
+    getLeftCount();
 
     this.setAttribute("isActive","1");
     this.setAttribute("style","border: 1px solid #e8d4d5;");
@@ -147,18 +146,11 @@ act.addEventListener("mouseleave",function()
 
 cmp.addEventListener("click",function()
 {
-    var list=document.getElementById("todoList");
-    var counter=0;
-    for(var i=0;i<list.childElementCount;i++)
-    {
-        list.children[i].style.display="block";
-        if(list.children[i].children[0].checked==false)
-        {
-            list.children[i].style.display="none";
-            counter++;
-        }
-    }
-    document.getElementById("listCount").textContent=list.childElementCount-counter+" items left";
+    clear();
+    for(var i=0;i<collectionObject.todoCollection.length;i++)
+        if(collectionObject.todoCollection[i].isCompleted==true)
+            render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
+    getLeftCount();
 
     this.setAttribute("isActive","1");
     this.setAttribute("style","border: 1px solid #e8d4d5;");

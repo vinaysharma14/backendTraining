@@ -6,6 +6,18 @@ function listClass(itemName,isCompleted)
     {
         this.isCompleted=!this.isCompleted;
     }
+    this.editName=function(itemName)
+    {
+        this.itemName=itemName
+    }
+    this.setCompleted=function()
+    {
+        this.isCompleted=true;
+    }
+    this.setIncomplete=function()
+    {
+        this.isCompleted=false;
+    }
 }
 
 function collectionClass()
@@ -15,6 +27,10 @@ function collectionClass()
     {
         var item=new listClass(itemName,isCompleted);
         this.todoCollection.push(item);
+    }
+    this.todoPop=function(index)
+    {
+        this.todoCollection.splice(index,1);
     }
 }
 
