@@ -3,7 +3,10 @@ function render(objectName,isCompleted,index)
     var list=document.getElementById("todoList");
     var item=document.createElement("li");
     item.setAttribute("id",index);
-    var itemCheck=document.createElement("input");
+    var itemCheck=document.createElement("div");
+    itemCheck.classList.add("checkBox");
+    var checkIcon=document.createElement("i");
+    checkIcon.classList.add("fas","fa-check");
     var itemName=document.createElement("p");
     var icon=document.createElement("i");
     icon.classList.add("fas","fa-times");
@@ -53,13 +56,14 @@ function render(objectName,isCompleted,index)
             render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
     });
 
-    itemCheck.type="checkbox";
+    itemCheck.appendChild(checkIcon);
     itemName.textContent=objectName;
     if(isCompleted==1)
     {
         itemName.style.textDecoration="line-through";
         itemName.style.color="lightgrey";
-        itemCheck.checked=true;
+        itemCheck.style.border="1px solid aquamarine";
+        checkIcon.style.display="block";
     }
 
     item.classList.add("list","shadow","p-2","bg-white");

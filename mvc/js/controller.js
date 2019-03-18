@@ -18,7 +18,11 @@ document.getElementById("todoInput").addEventListener("keydown",function(event)
         clear();
         collectionObject.todoPush(this.value,0);
         for(var i=0;i<collectionObject.todoCollection.length;i++)
-            render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
+        {
+            if(cmp.getAttribute("isActive")==1);
+            else
+                render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
+        }
         getLeftCount();
         this.value="";
     }

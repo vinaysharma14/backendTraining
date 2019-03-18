@@ -22,7 +22,20 @@ i
     float: left;
     margin-left: 20px;
     margin-right: 30px;
-    margin-top: 15px;
+    margin-top: 2px;
+    background-color: white;
+    border:1px solid lightgray;    
+    height:50px;
+    border-radius:50%;
+    width:50px;
+}
+.fa-check
+{
+    color: aquamarine;
+    position: relative;
+    top: 12;
+    left: 9;
+    display: none;
 }
 #todoInput
 {

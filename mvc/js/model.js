@@ -1,34 +1,37 @@
-function listClass(itemName,isCompleted)
+class listClass
 {
-    this.itemName=itemName;
-    this.isCompleted=isCompleted;
-    this.toggleCheck=function()
+    constructor(itemName,isCompleted)
+    {
+        this.itemName=itemName;
+        this.isCompleted=isCompleted;
+    }
+    toggleCheck=function()
     {
         this.isCompleted=!this.isCompleted;
     }
-    this.editName=function(itemName)
+    editName=(itemName)=>
     {
         this.itemName=itemName
     }
-    this.setCompleted=function()
+    setCompleted=()=>
     {
         this.isCompleted=true;
     }
-    this.setIncomplete=function()
+    setIncomplete=()=>
     {
         this.isCompleted=false;
     }
 }
 
-function collectionClass()
+class collectionClass
 {
-    this.todoCollection=[];
-    this.todoPush=function(itemName,isCompleted)
+    todoCollection=[];
+    todoPush=(itemName,isCompleted)=>
     {
         var item=new listClass(itemName,isCompleted);
         this.todoCollection.push(item);
     }
-    this.todoPop=function(index)
+    todoPop=(index)=>
     {
         this.todoCollection.splice(index,1);
     }
