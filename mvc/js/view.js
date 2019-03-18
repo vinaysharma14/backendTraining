@@ -1,4 +1,4 @@
-function render(objectName,isCompleted,index)
+render=(objectName,isCompleted,index)=>
 {
     var list=document.getElementById("todoList");
     var item=document.createElement("li");
@@ -10,7 +10,7 @@ function render(objectName,isCompleted,index)
     var itemName=document.createElement("p");
     var icon=document.createElement("i");
     icon.classList.add("fas","fa-times");
-    icon.setAttribute("style","float:right;margin-top:-18px;margin-right: 80px;color: #e8d4d5;display:none");
+    icon.setAttribute("style","float:right;margin-top:-35px;margin-right: 80px;color: #e8d4d5;display:none");
 
     itemName.addEventListener("click",function(event)
     {
@@ -43,8 +43,10 @@ function render(objectName,isCompleted,index)
         collectionObject.todoPop(this.parentElement.id);
         clear();
         getLeftCount();
-        for(var i=0;i<collectionObject.todoCollection.length;i++)
+        for(i=0;i<collectionObject.todoCollection.length;i++)
             render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
+        if(collectionObject.todoCollection.length==0)
+            document.getElementById("footer").style.display="none";
     });
 
     itemCheck.addEventListener("click",function()
@@ -74,12 +76,12 @@ function render(objectName,isCompleted,index)
     item.appendChild(icon);
     list.appendChild(item);
 }
-function clear()
+clear=()=>
 {
     while(list.firstChild)
         list.removeChild(list.firstChild);
 }
-function getLeftCount()
+getLeftCount=()=>
 {
     var c=0;
     for(var i=0;i<collectionObject.todoCollection.length;i++)

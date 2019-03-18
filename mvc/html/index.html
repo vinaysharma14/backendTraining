@@ -9,27 +9,22 @@
         <link rel="stylesheet" href="../css/style.css">
     </head>
     <body>
-        <div class="container">
-            <div>
-                <h1>todos</h1>
-            </div>
-            <div class="shadow" >
-                <input  type="text" class="w-100 p-4" id="todoInput" placeholder="What needs to be done ?">
-                <i id="downAngle" class="fas fa-angle-down"></i>
-            </div>
+        <div class="container"> 
+            <h1>todos</h1>
             <div class="shadow">
+                <input  type="text" class="w-100 p-4" id="todoInput" placeholder="What needs to be done ?">
+                <i id="downAngle" class="fas fa-angle-down downCaret"></i>
                 <ul id="todoList">
                 </ul>
             </div>
-            <div class="shadow p-2 bg-white">
+            <div class="shadow p-2 bg-white" id="footer">
                 <p id="listCount" style="display:inline">0 items left</p>
                 <ul class="button-list" style="display:inline;">
                     <li id="all" class="list-inline-item buttons">All</li>
                     <li id="act" class="list-inline-item buttons">Active</li>
                     <li id="cmp" class="list-inline-item buttons">Completed</li>
                 </ul>
-            </div>
-            </button>
+            </div>  
         </div>
     </body>
     <script src="../js/view.js"></script>

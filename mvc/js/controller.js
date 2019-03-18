@@ -17,12 +17,19 @@ document.getElementById("todoInput").addEventListener("keydown",function(event)
     {
         clear();
         collectionObject.todoPush(this.value,0);
-        for(var i=0;i<collectionObject.todoCollection.length;i++)
+        var i=0;
+        for(i=0;i<collectionObject.todoCollection.length;i++)
         {
-            if(cmp.getAttribute("isActive")==1);
+            if(cmp.getAttribute("isActive")==1)
+            {
+                if(collectionObject.todoCollection[i].isCompleted==true)
+                    render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
+            }
             else
                 render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,i);
         }
+        if(i!=0)
+            document.getElementById("footer").style.display="block";
         getLeftCount();
         this.value="";
     }
