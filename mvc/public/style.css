@@ -1,0 +1,100 @@
+body
+{
+    background-color: whitesmoke;
+}
+h1
+{
+    color: #e8d4d5;
+    font-weight: lighter;
+    text-align: center;
+    font-size: 100px;
+}
+#downAngle
+{
+    color: lightgray;
+    font-size: 30px;
+    position: relative;
+    top:-25;
+    left: 30;
+}
+.checkBox
+{
+    float: left;
+    margin-left: 8px;
+    margin-right: 30px;
+    margin-top: 2px;
+    background-color: white;
+    border:1px solid lightgray;    
+    height:50px;
+    border-radius:50%;
+    width:50px;
+}
+.fa-check
+{
+    color: aquamarine;
+    position: relative;
+    top: 14;
+    left: 10;
+    display: none;
+}
+#todoInput
+{
+    border-style: none;
+    outline: none;
+    border-bottom: 1px solid whitesmoke;
+    font-weight: lighter;
+    color: grey;
+    font-size: 25px;
+    text-indent: 50px;
+    margin-bottom: -30px;
+}
+::placeholder 
+{
+    color: lightgray;
+    font-style: italic;
+    font-size: 25px;
+    font-weight: lighter;
+    margin-left: 300px;
+}
+ul,li
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none ;
+}
+.list
+{
+    border-bottom: 1px solid whitesmoke;
+    font-weight: lighter;
+    font-size: 25px;
+}
+#listCount
+{
+    color: lightgray;
+    font-weight: lighter;
+    margin-left: 20px;
+}
+.button-list
+{
+    float: right;
+    margin-right: 100px;
+    font-weight: lighter;
+    color: lightgray;
+}
+.list-inline-item
+{
+    margin-right: 30px;
+    padding: 0px 10px 0px 10px;
+}
+.list-inline-item
+{
+    border-radius: 5px !important;
+}
+.list-inline-item:hover
+{
+    cursor: pointer !important;
+}
+#footer
+{
+    display: none;
+}

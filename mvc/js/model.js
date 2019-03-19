@@ -5,7 +5,7 @@ class listClass
         this.itemName=itemName;
         this.isCompleted=isCompleted;
     }
-    toggleCheck=function()
+    toggleCheck=()=>
     {
         this.isCompleted=!this.isCompleted;
     }
