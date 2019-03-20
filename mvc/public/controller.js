@@ -60,8 +60,7 @@ document.getElementById("downAngle").addEventListener("click",function()
 {
     if(all.getAttribute("isActive")==1)
     {
-        var list=document.getElementById("todoList");
-        if(checkItems()==1)
+        if(checkItems()==1 || checkItems()==2)
         {
             clear();
             for(var i=0;i<collectionObject.todoCollection.length;i++)
@@ -88,26 +87,54 @@ document.getElementById("downAngle").addEventListener("click",function()
     }
     else if(act.getAttribute("isActive")==1)
     {
-        clear();
-        for(var i=0;i<collectionObject.todoCollection.length;i++)
+        if(checkItems()==2 || checkItems()==1)
         {
-            collectionObject.todoCollection[i].setCompleted();
-            var request=new XMLHttpRequest();
-            request.open("POST",'/toggleCheck');
-            request.send(JSON.stringify({id:collectionObject.todoCollection[i]._id,flag: collectionObject.todoCollection[i].isCompleted}));
-            render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,collectionObject.todoCollection[i]._id);
+            clear();
+            for(var i=0;i<collectionObject.todoCollection.length;i++)
+            {
+                collectionObject.todoCollection[i].setCompleted();
+                var request=new XMLHttpRequest();
+                request.open("POST",'/toggleCheck');
+                request.send(JSON.stringify({id:collectionObject.todoCollection[i]._id,flag: collectionObject.todoCollection[i].isCompleted}));
+            }
+        }
+        else
+        {
+            clear();
+            for(var i=0;i<collectionObject.todoCollection.length;i++)
+            {
+                collectionObject.todoCollection[i].setIncomplete();
+                var request=new XMLHttpRequest();
+                request.open("POST",'/toggleCheck');
+                request.send(JSON.stringify({id:collectionObject.todoCollection[i]._id,flag: collectionObject.todoCollection[i].isCompleted}));
+                render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,collectionObject.todoCollection[i]._id);
+            }
         }
     }
     else if(cmp.getAttribute("isActive")==1)
     {
-        clear();
-        for(var i=0;i<collectionObject.todoCollection.length;i++)
+        if(checkItems()==2 || checkItems()==0)
         {
-            collectionObject.todoCollection[i].setIncomplete();
-            var request=new XMLHttpRequest();
-            request.open("POST",'/toggleCheck');
-            request.send(JSON.stringify({id:collectionObject.todoCollection[i]._id,flag: collectionObject.todoCollection[i].isCompleted}));
-            render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,collectionObject.todoCollection[i]._id);
+            clear();
+            for(var i=0;i<collectionObject.todoCollection.length;i++)
+            {
+                collectionObject.todoCollection[i].setIncomplete();
+                var request=new XMLHttpRequest();
+                request.open("POST",'/toggleCheck');
+                request.send(JSON.stringify({id:collectionObject.todoCollection[i]._id,flag: collectionObject.todoCollection[i].isCompleted}));
+            }
+        }
+        else
+        {
+            clear();
+            for(var i=0;i<collectionObject.todoCollection.length;i++)
+            {
+                collectionObject.todoCollection[i].setCompleted();
+                var request=new XMLHttpRequest();
+                request.open("POST",'/toggleCheck');
+                request.send(JSON.stringify({id:collectionObject.todoCollection[i]._id,flag: collectionObject.todoCollection[i].isCompleted}));
+                render(collectionObject.todoCollection[i].itemName,collectionObject.todoCollection[i].isCompleted,collectionObject.todoCollection[i]._id);
+            }
         }
     }
     getLeftCount();
@@ -118,13 +145,13 @@ checkItems=()=>
     var flag1=0,flag2=0;
     for(var i=0;i<collectionObject.todoCollection.length;i++)
     {
-        if(collectionObject.todoCollection[i].isCompleted==flag1)
+        if(collectionObject.todoCollection[i].isCompleted==false)
             flag1=1;
         else
             flag2=1;
     }
     if(flag1+flag2==2)
-        return 1;
+        return 2;
     if(flag2==0)
         return 1;
     if(flag1==0)
